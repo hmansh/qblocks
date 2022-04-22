@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 import hashlib
@@ -16,11 +16,11 @@ def create_app():
         db.init_app(app)
 
         from .views import views
-        from .authentication import authentication
         from .api import api
+
         app.register_blueprint(views, url_prefix='/')
-        app.register_blueprint(authentication, url_prefix='/')
         app.register_blueprint(api, url_prefix='/')
+
         create_database(app)
 
         return app

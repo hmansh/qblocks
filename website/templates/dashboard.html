@@ -14,7 +14,7 @@
 
 <body>
         <ul class="nav justify-content-end m-2">
-                <form class="nav-item pd" method="POST" action="logout">
+                <form class="nav-item pd" method="POST" action="logout.do">
                         <button type="submit" class="btn btn-danger">Logout</button>
                 </form>
         </ul>
@@ -32,7 +32,7 @@
                                         <label for="select" class="form-label">Select Candidate</label>
                                         <select id="" name="p-candidate" class="form-select">
                                                 {% for cand in candidates %}
-                                                {% if 'president' in [cand._position] %}
+                                                {% if 0 in [cand._fkid] %}
                                                 <option>{{cand._name}}</option>
                                                 {% endif %}
                                                 {% endfor %}
@@ -48,18 +48,18 @@
                                         <label for="select" class="form-label">Select Candidate</label>
                                         <select id="" name="vp-candidate" class="form-select">
                                                 {% for cand in candidates %}
-                                                {% if 'vice_presidents' in [cand._position] %}
+                                                {% if 1 in [cand._fkid] %}
                                                 <option>{{cand._name}}</option>
                                                 {% endif %}
                                                 {% endfor %}
                                         </select>
                                 </div>
                                 <div class="mb-3">
-                                        <!-- {% if user.voted == 1 %} -->
-                                        <button type="submit" class="btn btn-primary" disabled>Already Voted</button>
-                                        <!-- {% else %} -->
-                                        <button type="submit" class="btn btn-primary">Vote</button>
-                                        <!-- {% endif %} -->
+                                        {% if user.voted == 1 %}
+                                                <button type="submit" class="btn btn-primary" disabled>Already Voted</button>
+                                        {% else %}
+                                                <button type="submit" class="btn btn-primary">Vote</button>
+                                        {% endif %}
                                 </div>
                         </form>
                 </div>
@@ -74,7 +74,7 @@
                                 </thead>
                                 <tbody>
                                         {% for cand in candidates %}
-                                        {% if 'president' in [cand._position] %}
+                                        {% if 0 in [cand._fkid] %}
                                         <tr>
                                                 <td>{{cand._name}}</td>
                                                 <td>{{cand._total_votes}}</td>
@@ -93,7 +93,7 @@
                                 </thead>
                                 <tbody>
                                         {% for cand in candidates %}
-                                        {% if 'vice_presidents' in [cand._position] %}
+                                        {% if 1 in [cand._fkid] %}
                                         <tr>
                                                 <td>{{cand._name}}</td>
                                                 <td>{{cand._total_votes}}</td>
