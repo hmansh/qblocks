@@ -20,7 +20,7 @@
         </ul>
         <div class="container col-6 d-flex p-2">
                 <div class="container">
-                        <form method="POST" action="vote">
+                        <form method="POST" action="vote.do">
                                 <legend>Voting Panel</legend>
                                 <div class="mb-3">
                                         <label for="select" class="form-label">Position</label>
@@ -32,7 +32,7 @@
                                         <label for="select" class="form-label">Select Candidate</label>
                                         <select id="" name="p-candidate" class="form-select">
                                                 {% for cand in candidates %}
-                                                {% if 0 in [cand._fkid] %}
+                                                {% if 1 in [cand._fkid] %}
                                                 <option>{{cand._name}}</option>
                                                 {% endif %}
                                                 {% endfor %}
@@ -48,7 +48,7 @@
                                         <label for="select" class="form-label">Select Candidate</label>
                                         <select id="" name="vp-candidate" class="form-select">
                                                 {% for cand in candidates %}
-                                                {% if 1 in [cand._fkid] %}
+                                                {% if 2 in [cand._fkid] %}
                                                 <option>{{cand._name}}</option>
                                                 {% endif %}
                                                 {% endfor %}
@@ -74,7 +74,7 @@
                                 </thead>
                                 <tbody>
                                         {% for cand in candidates %}
-                                        {% if 0 in [cand._fkid] %}
+                                        {% if 1 in [cand._fkid] %}
                                         <tr>
                                                 <td>{{cand._name}}</td>
                                                 <td>{{cand._total_votes}}</td>
@@ -93,7 +93,7 @@
                                 </thead>
                                 <tbody>
                                         {% for cand in candidates %}
-                                        {% if 1 in [cand._fkid] %}
+                                        {% if 2 in [cand._fkid] %}
                                         <tr>
                                                 <td>{{cand._name}}</td>
                                                 <td>{{cand._total_votes}}</td>

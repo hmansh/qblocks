@@ -27,15 +27,15 @@ def login():
 def logout():
         if 'user' in session:
                 session.pop('user', None)
-        redirect(url_for('views.dashboard'))
+        return redirect(url_for('views.login'))
 
 @api.route('/vote.do', methods=['POST'])
 def vote():
-        p = request.form['p-cand']
+        p = request.form['p-candidate']
         president = Vote.query.filter_by(_name=p).first()
         president._total_votes += 1
 
-        vp = request.form['vp-cand']
+        vp = request.form['vp-candidate']
         vice_president = Vote.query.filter_by(_name=vp).first()
         vice_president._total_votes += 1
 
@@ -47,4 +47,4 @@ def vote():
         user._voted = 1
         db.session.commit()
 
-        return redirect(url_for('login'))
+        return redirect(url_for('views.dashboard'))
