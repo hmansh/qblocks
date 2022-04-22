@@ -16,7 +16,8 @@ def login():
 
 @views.route('/dashboard')
 def dashboard():
-        user = session['user']
-        candidates = Vote.query.all()
-        print(candidates)
-        return render_template('dashboard.html', user=user, candidates=candidates)
+        if 'user' in session:
+                user = session['user']
+                candidates = Vote.query.all()
+                return render_template('dashboard.html', user=user, candidates=candidates)
+        return redirect(url_for('views.login'))
