@@ -31,6 +31,19 @@ def logout():
 
 @api.route('/vote.do', methods=['POST'])
 def vote():
+
+        user = session['user']
+
+        if user['voted'] == 1:
+                return redirect(url_for('views.dashboard'))
+
+        session['user'] = {'email': user['email'], 'voted': 1, 'userid': user['userid']}
+
+        user = User.query.filter_by(_email=user['email']).first()
+        user._voted = 1
+        
+        db.session.commit()
+
         p = request.form['p-candidate']
         president = Vote.query.filter_by(_name=p).first()
         president._total_votes += 1
@@ -39,12 +52,6 @@ def vote():
         vice_president = Vote.query.filter_by(_name=vp).first()
         vice_president._total_votes += 1
 
-        db.session.commit()
-
-        user = session['user']
-        session['user'] = {'email': user['email'], 'voted': 1, 'userid': user['userid']}
-        user = User.query.filter_by(_email=user['email']).first()
-        user._voted = 1
         db.session.commit()
 
         return redirect(url_for('views.dashboard'))
