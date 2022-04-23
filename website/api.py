@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, render_template, request
+from flask import Blueprint, redirect, url_for, request
 from .model import Vote, User, Position
 import hashlib
 from . import session
