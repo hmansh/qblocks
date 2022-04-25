@@ -6,7 +6,7 @@ from . import db
 
 api = Blueprint('api', __name__)
 
-@api.route('/login.do', methods=['POST'])
+@api.route('/login.do', methods=['GET','POST'])
 def login():
         if 'user' in session:
                 session.pop('user', None)
@@ -20,16 +20,19 @@ def login():
                         user = {'email': user._email, 'voted': user._voted, 'userid': user._userid}
                         session['user'] = user
                         print(email, password)
-                        return redirect(url_for('views.dashboard'))
-        return redirect(url_for('views.login'))
+                        return {'success' : True}
+                        # return redirect(url_for('views.dashboard'))
+        return {'success' : False}
+        # return redirect(url_for('views.login'))
 
-@api.route('/logout.do', methods=['POST'])
+@api.route('/logout.do', methods=['GET','POST'])
 def logout():
         if 'user' in session:
                 session.pop('user', None)
-        return redirect(url_for('views.login'))
+        return {'success': False}
+        # return redirect(url_for('views.login'))
 
-@api.route('/vote.do', methods=['POST'])
+@api.route('/vote.do', methods=['GET','POST'])
 def vote():
 
         user = session['user']
@@ -54,4 +57,5 @@ def vote():
 
         db.session.commit()
 
-        return redirect(url_for('views.dashboard'))
+        return {'success': True}
+        # return redirect(url_for('views.dashboard'))
